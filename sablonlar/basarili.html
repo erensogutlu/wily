@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bağlantı Başarılı</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 20px;
+        }
+
+        .kart {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .onay-ikonu {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: belir 0.6s ease-out;
+            box-shadow: 0 4px 20px rgba(0, 184, 148, 0.35);
+        }
+
+        .onay-ikonu span {
+            font-size: 40px;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        @keyframes belir {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .baslik {
+            color: #00b894;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .mesaj {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .yukleyici {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #00b894;
+            border-radius: 50%;
+            animation: dondur 0.8s linear infinite;
+        }
+
+        @keyframes dondur {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .kart {
+                padding: 36px 24px;
+                border-radius: 20px;
+            }
+
+            .baslik {
+                font-size: 22px;
+            }
+
+            .onay-ikonu {
+                width: 68px;
+                height: 68px;
+            }
+
+            .onay-ikonu span {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="kart">
+        <div class="onay-ikonu">
+            <span>✓</span>
+        </div>
+        <h1 class="baslik">Bağlantı Başarılı!</h1>
+        <p class="ag-adi" style="color: #00b894; font-size: 16px; font-weight: 600; margin-bottom: 8px;">{ssid}</p>
+        <p class="mesaj">
+            İnternet bağlantınız kuruluyor...<br>
+            Lütfen bekleyin, birkaç saniye içinde bağlanacaksınız.
+        </p>
+        <div class="yukleyici">
+            <div class="spinner"></div>
+            <span id="durum">Ağ yapılandırılıyor...</span>
+        </div>
+        <div style="margin-top: 20px; background: rgba(255,255,255,0.06); border-radius: 8px; height: 6px; overflow: hidden;">
+            <div id="ilerleme" style="height: 100%; width: 0%; background: linear-gradient(90deg, #00b894, #00cec9); border-radius: 8px; transition: width 0.5s ease;"></div>
+        </div>
+    </div>
+
+    <script>
+        var mesajlar = [
+            'Ağ yapılandırılıyor...',
+            'DHCP adresi alınıyor...',
+            'DNS sunucuları ayarlanıyor...',
+            'Güvenlik doğrulanıyor...',
+            'İnternet bağlantısı test ediliyor...',
+            'Bağlantı kuruluyor...'
+        ];
+        var i = 0;
+        var ilerleme = document.getElementById('ilerleme');
+        var durum = document.getElementById('durum');
+        setInterval(function() {
+            i++;
+            var yuzde = Math.min(i * 5, 95);
+            ilerleme.style.width = yuzde + '%';
+            if (i < mesajlar.length) {
+                durum.textContent = mesajlar[i];
+            } else {
+                durum.textContent = 'Bağlantı kuruluyor...';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

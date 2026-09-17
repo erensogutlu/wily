@@ -1,0 +1,17 @@
+# Python Bytecode ve Önbellek (Cache)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.cache/
+
+# Test Dosyaları
+testler/
+
+# Geliştirici ve Ortam Dosyaları
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store

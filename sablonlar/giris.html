@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kablosuz Ağ Girişi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 20px;
+        }
+
+        .kart {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .ikon-alani {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .wifi-ikon {
+            font-size: 48px;
+            display: inline-block;
+            animation: nabiz 2s ease-in-out infinite;
+        }
+
+        @keyframes nabiz {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.85; }
+        }
+
+        .baslik {
+            text-align: center;
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .ag-adi {
+            text-align: center;
+            color: #e94560;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            word-break: break-all;
+        }
+
+        .alt-baslik {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 14px;
+            margin-bottom: 36px;
+        }
+
+        .hata-mesaji {
+            background: rgba(233, 69, 96, 0.15);
+            border: 1px solid rgba(233, 69, 96, 0.4);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #ff6b81;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .hata-mesaji.goster {
+            display: block;
+            animation: sallan 0.4s ease-in-out;
+        }
+
+        @keyframes sallan {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        .form-grubu {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-grubu label {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .sifre-alani {
+            position: relative;
+        }
+
+        .form-grubu input {
+            width: 100%;
+            padding: 14px 48px 14px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-grubu input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-grubu input:focus {
+            border-color: #e94560;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.15);
+        }
+
+        .sifre-goster {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .sifre-goster:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .giris-butonu {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #e94560, #c23152);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .giris-butonu:hover {
+            background: linear-gradient(135deg, #c23152, #a82845);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.35);
+        }
+
+        .giris-butonu:active {
+            transform: translateY(0);
+        }
+
+        .guvenlik-notu {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 12px;
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .guvenlik-notu .kilit {
+            font-size: 13px;
+        }
+
+        @media (max-width: 480px) {
+            .kart {
+                padding: 36px 24px;
+                border-radius: 20px;
+            }
+
+            .baslik {
+                font-size: 22px;
+            }
+
+            .ag-adi {
+                font-size: 16px;
+            }
+
+            .form-grubu input {
+                padding: 12px 44px 12px 14px;
+                font-size: 14px;
+            }
+
+            .giris-butonu {
+                padding: 13px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="kart">
+        <div class="ikon-alani">
+            <span class="wifi-ikon">📶</span>
+        </div>
+        <h1 class="baslik">Ağa Bağlan</h1>
+        <p class="ag-adi">{ssid}</p>
+        <p class="alt-baslik">Devam etmek için WiFi şifrenizi girin</p>
+
+        <div class="hata-mesaji {hata_sinifi}" id="hataMesaji">
+            ⚠ Girilen şifre yanlış. Lütfen tekrar deneyin.
+        </div>
+
+        <form action="/giris" method="POST" autocomplete="off">
+            <div class="form-grubu">
+                <label for="wifi_sifre">WiFi Şifresi</label>
+                <div class="sifre-alani">
+                    <input
+                        type="password"
+                        id="wifi_sifre"
+                        name="wifi_sifre"
+                        placeholder="••••••••"
+                        minlength="8"
+                        maxlength="63"
+                        required
+                        autofocus
+                    >
+                    <button type="button" class="sifre-goster" onclick="sifreGoster()" aria-label="Şifreyi göster">
+                        👁
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="giris-butonu">Bağlan</button>
+        </form>
+
+        <p class="guvenlik-notu">
+            <span class="kilit">🔒</span>
+            Bu ağ güvenli bağlantı gerektirir
+        </p>
+    </div>
+
+    <script>
+        function sifreGoster() {
+            var sifre = document.getElementById('wifi_sifre');
+            var buton = document.querySelector('.sifre-goster');
+            if (sifre.type === 'password') {
+                sifre.type = 'text';
+                buton.textContent = '🔒';
+            } else {
+                sifre.type = 'password';
+                buton.textContent = '👁';
+            }
+        }
+    </script>
+</body>
+</html>

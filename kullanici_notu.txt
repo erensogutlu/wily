@@ -1,0 +1,56 @@
+WILY - KULLANICI NOTU / USER NOTE
+==================================
+
+[TR] TÜRKÇE
+-----------
+Bu araç, kablosuz ağ güvenliği ve farkındalık testlerini otomatikleştirmek amacıyla geliştirilmiştir. Ancak her güvenlik testinde olduğu gibi çevresel faktörler, donanım özellikleri ve modern güvenlik standartları nedeniyle her senaryoda doğrudan sonuç vermeyebilir.
+
+
+1. KARŞILAŞILABİLECEK TEMEL KISITLAMALAR
+-----------------------------------------
+* Donanım ve Sürücü: Wi-Fi kartınızın monitör mod ve paket enjeksiyonu desteği tam olmalıdır. Tek adaptör kullanımı kanal uyuşmazlığına ve performans kaybına yol açabilir.
+* Modern Güvenlik Standartları: WPA3, 802.11w (Yönetim Çerçevesi Koruması / PMF) ve MAC adresi rastgeleleştirme gibi güvenlik mekanizmaları deauth paketlerini veya istemci takibini sınırlandırabilir.
+* Fiziksel ve Çevresel Faktörler: Sahte erişim noktasının sinyal gücünün hedef ağdan zayıf kalması veya 2.4 GHz / 5 GHz bant farklılıkları cihazların sahte ağa geçişini engelleyebilir.
+
+
+2. BAŞARIYA ULAŞMAK İÇİN ARAŞTIRMA VE ÇÖZÜM YOLLARI
+---------------------------------------------------
+* Doğru Donanım ve Çift Adaptör: Monitör modu kararlı çalışan harici adaptörler (biri Rogue AP yayını, diğeri monitör mod / deauth için) kullanarak başarı oranını önemli ölçüde artırabilirsiniz.
+* Hedef ve Parametre Uyumu: Hedef ağın kanal, BSSID ve ESSID değerlerini tam eşleştirin; genel yayın yerine doğrudan aktif istemcinin MAC adresine odaklanın.
+* Alternatif Yöntemler: Korumalı ağlarda ve deauth paketlerinin engellendiği durumlarda PMKID yakalama gibi alternatif teknikleri araştırın.
+* Şablon ve Senaryo Optimizasyonu: Test ortamına uygun Captive Portal şablonları ve inandırıcı yönlendirme metinleri kullanın.
+* Log ve Hata İnceleme: Olası aksaklıklarda "kayitlar/" dizini altındaki çıktıları ve sistem servis loglarını (hostapd, dnsmasq, iptables) inceleyerek süreci optimize edin.
+
+
+ÖZET
+----
+Karşılaşılan teknik kısıtlamalar; doğru donanım seçimi, hedef ağ analizi ve senaryo optimizasyonu ile aşılabilir.
+
+
+======================================================================
+
+
+[EN] ENGLISH
+------------
+This tool was developed to automate wireless network security and awareness auditing. However, as with any security assessment, it may not produce direct results in every scenario due to environmental factors, hardware specifications, and modern security standards.
+
+
+1. PRIMARY LIMITATIONS TO CONSIDER
+----------------------------------
+* Hardware and Drivers: Your Wi-Fi adapter must fully support monitor mode and packet injection. Using a single adapter may lead to channel switching conflicts and performance degradation.
+* Modern Security Standards: WPA3, 802.11w (Protected Management Frames / PMF), and MAC address randomization may prevent deauth attacks or client tracking.
+* Physical and Environmental Factors: If the rogue access point signal is weaker than the target network or if there is a 2.4 GHz vs 5 GHz band mismatch, clients may not associate with the rogue AP.
+
+
+2. STRATEGIES AND RESEARCH FOR SUCCESSFUL RESULTS
+-------------------------------------------------
+* Compatible Hardware & Dual Adapters: Utilizing external adapters with reliable monitor mode drivers (one for Rogue AP broadcasting and another for monitor/deauth tasks) significantly increases the success rate.
+* Target & Parameter Alignment: Carefully match the target network's channel, BSSID, and ESSID; target active client MAC addresses directly instead of using broadcast deauth.
+* Alternative Techniques: In protected networks where deauth is ineffective, investigate alternative methods such as PMKID capture.
+* Template & Scenario Optimization: Use context-appropriate Captive Portal templates with convincing and clear messaging tailored to the audience.
+* Log & Error Diagnostics: In case of unexpected behavior, inspect output logs under "kayitlar/" and system service logs (hostapd, dnsmasq, iptables) to debug and optimize the setup.
+
+
+SUMMARY
+-------
+Technical limitations can be overcome with appropriate hardware selection, target network analysis, and scenario optimization.
